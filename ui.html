@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Text &amp; Layer Selector</title>
+  <link rel="stylesheet" href="./css/common.css" />
+  <link rel="stylesheet" href="./css/ui.css" />
+  <style id="plugin-inline-styles">:root {
+  --ink: #333;
+  --muted: #6b6b6b;
+  --line: #e5e5e5;
+  --surface: #fff;
+  --soft: #f5f5f5;
+  --subtle: #f7f7f7;
+  --accent: #0d99ff;
+  --action: #0876c9;
+  --action-hover: #065f9f;
+  --text-size: 12px;
+  --text-small: 11px;
+  --text-caption: 10px;
+  --tab-height: 28px;
+  --field-height: 32px;
+  --button-height: 34px;
+  --control-radius: 6px;
+  font: var(--text-size)/1.5 Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+
+input[type="checkbox"] {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  vertical-align: middle;
+}
+
+@media (forced-colors: none) {
+  input[type="checkbox"] {
+    appearance: none;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--figma-color-border-strong, #777);
+    border-radius: 4px;
+    background-color: var(--figma-color-bg, var(--surface));
+    color: var(--surface);
+    cursor: pointer;
+  }
+
+  input[type="checkbox"]:is(:checked, :indeterminate) {
+    border-color: var(--action);
+    background-color: var(--action);
+  }
+
+  input[type="checkbox"]:checked::before {
+    content: "";
+    width: 4px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-1px) rotate(45deg);
+    border-radius: 2px;
+  }
+
+  input[type="checkbox"]:indeterminate::before {
+    content: "";
+    width: 8px;
+    height: 2px;
+    border: 0;
+    background: currentColor;
+    transform: none;
+  }
+
+  input[type="checkbox"]:enabled:hover { border-color: var(--action-hover); }
+  input[type="checkbox"]:enabled:is(:checked, :indeterminate):hover { background-color: var(--action-hover); }
+  input[type="checkbox"]:disabled { opacity: .55; cursor: not-allowed; }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: -.3px;
+}
+
+.brand__mark {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.brand__mark i {
+  display: block;
+  border-radius: 4px;
+  background: var(--accent);
+}
+.brand__mark i:nth-child(2) { background: #a259ff; }
+.brand__mark i:nth-child(3) { background: #f24e1e; }
+.brand__mark i:nth-child(4) { background: #1abcfe; }
+
+.form-control, .control-button {
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid var(--figma-color-border, #ddd);
+  border-radius: var(--control-radius);
+  background-color: var(--figma-color-bg, var(--surface));
+  color: var(--figma-color-text, var(--ink));
+  font-size: var(--text-size);
+}
+
+:is(input, select).form-control {
+  width: 100%;
+  height: var(--field-height);
+  padding-inline: 9px;
+}
+
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-inline-end: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='m3 4.5 3 3 3-3' stroke='%23777' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px 12px;
+}
+
+@media (forced-colors: active) {
+  select.form-control {
+    appearance: auto;
+    -webkit-appearance: auto;
+    padding-inline-end: 9px;
+    background-image: none;
+  }
+}
+
+textarea.form-control {
+  display: block;
+  width: 100%;
+  min-height: 155px;
+  padding: 11px;
+  resize: vertical;
+  font: var(--text-small)/1.55 "SFMono-Regular", Consolas, monospace;
+  tab-size: 2;
+}
+
+.form-control::placeholder {
+  color: var(--figma-color-text-tertiary, var(--muted));
+  opacity: 1;
+}
+
+.form-control:not(:disabled, [readonly], :focus-visible):hover {
+  border-color: var(--figma-color-border-strong, #aaa);
+}
+
+.form-control:focus-visible, .control-button:focus-visible, .segment-item:focus-visible, input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--figma-color-border-selected, var(--accent));
+  outline-offset: 2px;
+}
+
+.form-control:focus-visible { border-color: var(--figma-color-border-selected, var(--accent)); }
+
+.form-control[readonly], .form-control:disabled {
+  background-color: var(--figma-color-bg-secondary, var(--soft));
+}
+.form-control[readonly] { cursor: default; }
+.form-control:disabled, .control-button:disabled { opacity: .55; cursor: not-allowed; }
+
+.control-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--button-height);
+  padding: 0 13px;
+  font-weight: 650;
+}
+.control-button:not(:disabled):hover { background-color: var(--figma-color-bg-secondary, var(--soft)); }
+
+.control-button--primary {
+  border-color: var(--action);
+  background-color: var(--action);
+  color: var(--surface);
+}
+.control-button--primary:not(:disabled):hover {
+  border-color: var(--action-hover);
+  background-color: var(--action-hover);
+}
+
+.segment-list {
+  gap: 3px;
+  padding: 3px;
+  border-radius: 7px;
+  background: var(--figma-color-bg-secondary, #f3f3f3);
+}
+.segment-item {
+  display: grid;
+  place-items: center;
+  min-height: var(--tab-height);
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--figma-color-text-secondary, var(--muted));
+  font-size: var(--text-small);
+}
+.segment-item:is(:hover, [aria-selected="true"], [aria-current="location"]) {
+  background: var(--figma-color-bg, var(--surface));
+  color: var(--figma-color-text, var(--ink));
+  box-shadow: 0 1px 3px #0002;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+  :root {color-scheme: light dark; --line-tight: 1.3; --accent-teal: #15a48f;}
+  html, body {min-height: 100%;}
+  body {background: var(--figma-color-bg, var(--surface)); color: var(--figma-color-text, var(--ink)); -webkit-font-smoothing: antialiased;}
+  .app {height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+  .header {height:52px;flex:0 0 52px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--figma-color-border, var(--line));}
+  .header__meta {display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px;}
+  .eyebrow {min-width: 0; margin: 0; color: var(--accent); font-size: var(--text-caption); font-weight: 600; line-height: var(--line-tight);}
+  .shortcut {flex: 0 0 auto; margin: 0; text-align: right; color: var(--figma-color-text-tertiary, #888); font-size: var(--text-caption); line-height: var(--line-tight); white-space: nowrap;}
+  .header__actions {display: flex; align-items: center; gap: 8px; flex-shrink: 0;}
+  .header__version {font-size: 10px; color: var(--figma-color-text-tertiary, #999); white-space: nowrap;}
+  .help-trigger, .help-dialog__close {display: grid; place-items: center; flex: 0 0 var(--tab-height); width: var(--tab-height); min-height: var(--tab-height); color: var(--figma-color-text-secondary, var(--muted));}
+  .help-trigger {padding: 5px; border-radius: 5px;}
+  .help-trigger:hover {color: var(--accent);}
+  .help-trigger svg {width: 17px; height: 17px; fill: none; stroke: currentcolor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8;}
+  .help-dialog {width: min(420px, calc(100% - 24px)); max-height: min(640px, calc(100vh - 32px)); max-height: min(640px, calc(100dvh - 32px)); padding: 0; overflow: hidden; border: 1px solid var(--figma-color-border, #ddd); border-radius: 12px; background: var(--figma-color-bg, var(--surface)); color: var(--figma-color-text, var(--ink)); box-shadow: 0 20px 64px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.08);}
+  .help-dialog[open] {display: flex; flex-direction: column;}
+  .help-dialog::backdrop {background: rgba(15, 23, 42, 0.48);}
+  .help-dialog__header {display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; padding: 14px 16px; border-bottom: 1px solid var(--figma-color-border, var(--line)); background: var(--figma-color-bg, var(--surface));}
+  .help-dialog__heading {display: flex; align-items: center; gap: 9px; min-width: 0;}
+  .help-dialog__icon {display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px; border-radius: 8px; background: var(--figma-color-bg-selected-secondary, #edf7ff); color: var(--accent); font-size: 15px; font-weight: 650;}
+  .help-dialog__title {margin: 0; font-size: 14px; font-weight: 650; line-height: 1.4;}
+  .help-dialog__body {min-height: 0; padding: 14px; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; background: var(--figma-color-bg-secondary, var(--subtle));}
+  .help-dialog__section {padding: 14px; border: 1px solid var(--figma-color-border, var(--line)); border-radius: 8px; background: var(--figma-color-bg, var(--surface));}
+  .help-dialog__section + .help-dialog__section {margin-top: 10px;}
+  .help-dialog__section:first-child {border-color: var(--figma-color-border-selected, #b8dcff); background: var(--figma-color-bg-selected-secondary, #edf7ff);}
+  .help-dialog__section h3 {display: flex; align-items: center; gap: 7px; margin: 0 0 10px; color: var(--figma-color-text, var(--ink)); font-size: 12px; font-weight: 650; line-height: 1.4;}
+  .help-dialog__section h3::before {content: ''; width: 3px; height: 12px; border-radius: 2px; background: var(--accent);}
+  .help-dialog__list {display: grid; gap: 9px; margin: 0; padding-left: 16px; color: var(--figma-color-text-secondary, var(--muted)); font-size: 11px; line-height: 1.7; overflow-wrap: anywhere;}
+  .help-dialog__list li::marker {color: var(--figma-color-text-tertiary, #aaa); font-size: 9px;}
+  .help-dialog__list strong {color: var(--figma-color-text, var(--ink)); font-weight: 600;}
+  .help-dialog__section:first-child .help-dialog__list {list-style: none; padding-left: 0;}
+  .help-dialog kbd {display: inline-block; margin: 1px 0; font-size: 10px; line-height: 1.5;}
+  .help-dialog__close {padding: 0; border-color: transparent; font-size: 20px; font-weight: 400; line-height: 1;}
+  .help-dialog__close:hover {border-color: var(--figma-color-border, #ddd);}
+  kbd {padding: 1px 4px; border: 1px solid var(--figma-color-border, #e6e6e6); border-radius: 4px; background: var(--figma-color-bg-secondary, var(--soft)); color: var(--figma-color-text-secondary, var(--muted)); font-family: inherit; font-size: inherit;}
+  h1 {margin:0;font-size:13px;line-height:1.3;font-weight:650;letter-spacing:0;}
+  .description {max-width: 62ch; margin: 6px 0 0; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-size);}
+  /* 선택 현황 카드 */ .selection-card {display:flex;align-items:center;gap:10px;min-height:56px;padding:10px;margin:0;border:1px solid var(--figma-color-border, var(--line));border-radius:7px;background:var(--figma-color-bg-secondary, var(--soft));}
+  .selection-card[data-state="unselected"] {border-color:var(--figma-color-border, var(--line));background:var(--figma-color-bg-secondary, var(--soft));box-shadow:none;}
+  .selection-card[data-state="selected"] {border-color:var(--figma-color-border-selected, var(--accent));background:var(--figma-color-bg-selected-secondary,#f0f8ff);}
+  .selection-icon {display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border:1px solid var(--figma-color-border,#ddd);border-radius:5px;background:var(--figma-color-bg, var(--surface));color:var(--figma-color-text-secondary, var(--muted));}
+  .selection-card[data-state="selected"] .selection-icon {border-color: transparent; background: var(--figma-color-bg-selected, #fff); color: var(--accent);}
+  .selection-card[data-state="unselected"] .selection-icon {border-color:var(--figma-color-border,#ddd);background:var(--figma-color-bg, var(--surface));color:var(--figma-color-text-secondary, var(--muted));}
+  .selection-icon svg {display: none; width: 17px; height: 17px; fill: none; stroke: currentcolor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7;}
+  .selection-card[data-state="unselected"] .selection-icon [data-icon="scope"], .selection-card[data-state="selected"] .selection-icon [data-icon="check"] {display: block;}
+  .selection-text {min-width: 0;}
+  .selection-title {margin: 0; font-weight: 600; line-height: var(--line-tight); overflow-wrap: anywhere;}
+  .selection-hint {margin: 2px 0 0; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small);}
+  /* 섹션 */ .section {padding:16px 0;border-top:1px solid var(--figma-color-border, var(--line));}
+  .section:first-of-type {border-top: 0; padding-top: 0;}
+  .section h2 {color:var(--figma-color-text-secondary, var(--muted));}
+  .mode-tabs {display: grid; flex-shrink: 0; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 0 16px; border-bottom: 1px solid var(--figma-color-border, #ddd);}
+  .mode-tabs__item {height: 38px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--figma-color-text-secondary, var(--muted)); font-weight: 600;}
+  .mode-tabs__item--active {border-bottom-color: var(--accent); color: var(--figma-color-text, #222);}
+  .mode-tabs__item:focus-visible {outline: 2px solid var(--accent); outline-offset: -2px;}
+  .tab-panel[hidden] {display: none;}
+  .section-title {margin:0;font-size:10px;font-weight:700;letter-spacing:.06em;line-height:1.5;}
+  .section-desc {margin: 3px 0 10px; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small);}
+  .label {display: block; margin-bottom: 6px; font-weight: 600; line-height: var(--line-tight);}
+  .field {margin-top: 10px;}
+  .field-hint {margin: 5px 0 0; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small);}
+  .style-reference {display:flex;align-items:center;gap:10px;min-height:48px;padding:10px;margin-top:10px;border:1px solid var(--figma-color-border,#ddd);border-radius:7px;background:var(--figma-color-bg-secondary, var(--subtle));color:var(--figma-color-text, var(--ink));}
+  .style-reference__icon {display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px; border-radius: 8px; background: var(--figma-color-bg, var(--surface)); color: var(--accent);}
+  .style-reference[data-mode="color"] .style-reference__icon {color: var(--accent-teal);}
+  .style-reference__icon svg {display: block; width: 10px; height: 10px; fill: currentcolor;}
+  .style-reference__content {min-width: 0;}
+  .style-reference__title {margin: 0; font-size: var(--text-small); font-weight: 600; line-height: var(--line-tight);}
+  .style-reference__value {margin: 3px 0 0; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small); overflow-wrap: anywhere;}
+  .field__sub-label {margin-top: 10px;}
+  .grid-2, .grid-3 {display: grid; gap: 8px;}
+  .grid-2 {grid-template-columns: 1fr 1fr;}
+  .grid-3 {grid-template-columns: 1fr 1fr 1fr;}
+  .structure-conversion-pair {grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr); align-items: end; margin-top: 10px;}
+  .structure-conversion-pair .field {margin-top: 0;}
+  .structure-conversion-pair__arrow {display: grid; min-height: 32px; place-items: center; color: var(--figma-color-text-secondary, var(--muted)); font-size: 16px; font-weight: 600;}
+  .action-grid--spaced {margin-top: 10px;}
+  .text-replacement-pair {display: grid; grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr); align-items: end; gap: 8px;}
+  .text-replacement-pair__field {min-width: 0;}
+  .text-replacement-pair__field .label, .field--replacement-scope .label, .action-group__legend {font-size: var(--text-small);}
+  .text-replacement-pair__arrow {display: grid; min-height: 32px; place-items: center; color: var(--figma-color-text-secondary, var(--muted)); font-size: 16px; font-weight: 600;}
+  .action-grid--type-selection {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+  .action-grid--layer-type-selection {grid-template-columns:repeat(3,minmax(0,1fr));}
+  .action-grid--type-selection .control-button, .action-grid--type-grouping .control-button {white-space: normal; overflow-wrap: anywhere;}
+  .action-grid--type-grouping {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+  .type-grouping-direction {margin-top: 10px;}
+  .type-grouping-direction[hidden] {display: none;}
+  .stack-top {margin-top: 10px;}
+  .action-group {min-width: 0; margin: 10px 0 0; padding: 0; border: 0;}
+  .action-group__legend {display: block; width: 100%;}
+  .sub-label {margin: 12px 0 6px; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small); font-weight: 600; line-height: var(--line-tight);}
+  /* 입력 */ .tab-panel .control-button {width: 100%; padding-block: 7px;}
+  /* 푸터 */ .footer {flex-shrink:0;margin:0;padding:10px 16px;border-top:1px solid var(--figma-color-border, var(--line));background:var(--figma-color-bg, var(--surface));}
+  .creator-meta {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--figma-color-text-secondary, var(--muted));font-size:11px;line-height:1.5;text-align:center;overflow-wrap:anywhere;}
+  .content {display: flex; flex: 1; flex-direction: column; gap: 16px; min-height: 0; padding: 16px; overflow-y: auto; overscroll-behavior-y: contain;}
+  .content:focus-visible {outline: 2px solid var(--accent); outline-offset: -2px;}
+  .content > * {flex-shrink: 0;}
+  .brand {min-width: 0;}
+  .brand h1 {overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+  @media (max-width: 340px) {
+    .text-replacement-pair, .structure-conversion-pair {grid-template-columns: minmax(0, 1fr);}
+    .text-replacement-pair__arrow, .structure-conversion-pair__arrow {display: none;}
+  }
+
+</style>
+</head>
+<body>
+  <main class="app" aria-labelledby="pluginTitle">
+    <header class="header">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <h1 id="pluginTitle">Text &amp; Layer Selector</h1>
+      </div>
+      <div class="header__actions">
+        <span class="header__version">BETA · 2.5.1</span>
+        <button id="helpTrigger" class="help-trigger control-button" type="button" aria-label="사용 방법 및 키보드 접근성 안내 열기" aria-haspopup="dialog" aria-controls="helpDialog"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M9.8 9a2.3 2.3 0 1 1 3.8 1.7c-1 .9-1.6 1.2-1.6 2.8M12 17h.01"></path></svg></button>
+      </div>
+    </header>
+
+    <nav class="mode-tabs" role="tablist" aria-label="기능 선택">
+      <button id="tabTextTools" class="mode-tabs__item mode-tabs__item--active" type="button" role="tab" aria-selected="true" aria-controls="panelTextTools" tabindex="0">텍스트 검색</button>
+      <button id="tabLayerName" class="mode-tabs__item" type="button" role="tab" aria-selected="false" aria-controls="panelLayerName" tabindex="-1">레이어/그룹명 검색</button>
+      <button id="tabStructureTools" class="mode-tabs__item" type="button" role="tab" aria-selected="false" aria-controls="panelStructureTools" tabindex="-1">유형별 검색</button>
+    </nav>
+    <div class="content" role="region" aria-label="플러그인 기능 내용" tabindex="0">
+    <section class="selection-card" data-state="unselected" role="status" aria-live="polite" aria-atomic="true" aria-label="현재 선택 상태">
+      <div class="selection-icon selection-card__icon" aria-hidden="true">
+        <svg data-icon="scope" viewBox="0 0 24 24" focusable="false">
+          <rect x="5.5" y="5.5" width="13" height="13" rx="2"></rect>
+          <path d="M9 10h6M9 14h4"></path>
+        </svg>
+        <svg data-icon="check" viewBox="0 0 24 24" focusable="false">
+          <path d="m6.5 12.5 3.7 3.7 7.3-8"></path>
+        </svg>
+      </div>
+      <div class="selection-text selection-card__content">
+        <p id="selectionCount" class="selection-title">검색 범위를 선택하세요</p>
+        <p id="selectionHint" class="selection-hint">그룹이나 프레임을 선택하면 그 안에서 검색합니다.</p>
+      </div>
+    </section>
+
+
+
+    <div id="panelTextTools" class="tab-panel tab-panel--text-tools" role="tabpanel" aria-labelledby="tabTextTools" tabindex="0">
+      <!-- 1. 텍스트 -->
+      <section class="section section--text-selection" aria-labelledby="selectTextTitle">
+        <h2 id="selectTextTitle" class="section-title">텍스트 전부 선택</h2>
+        <p class="section-desc">범위 안의 텍스트를 모두 선택합니다.</p>
+        <button id="selectAllTextBtn" class="control-button control-button--primary" type="button">모든 텍스트 선택</button>
+      </section>
+
+      <section class="section section--text-style" aria-labelledby="textStyleTitle">
+        <h2 id="textStyleTitle" class="section-title">텍스트 지정 선택</h2>
+        <p class="section-desc">텍스트 하나를 기준으로 같은 서체, 같은 크기, 같은 색상 또는 세 조건이 모두 일치하는 텍스트를 찾습니다.</p>
+        <div id="styleReference" class="style-reference" data-mode="empty" role="status" aria-live="polite" aria-atomic="true">
+          <span class="style-reference__icon" aria-hidden="true">
+            <svg data-icon="type" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 600 610" fill="none" focusable="false">
+              <path d="M36 0 H564 Q600 0 600 36 V142 Q600 169 577 169 Q562 169 551 149 Q518 82 453 72 H376 Q360 72 360 89 V500 Q360 550 410 561 L443 568 Q465 572 465 591 Q465 610 443 610 H157 Q135 610 135 591 Q135 572 157 568 L190 561 Q240 550 240 500 V89 Q240 72 224 72 H147 Q82 82 49 149 Q38 169 23 169 Q0 169 0 142 V36 Q0 0 36 0 Z" fill="currentColor"></path>
+            </svg>
+          </span>
+          <span class="style-reference__content">
+            <span id="styleReferenceTitle" class="style-reference__title">스타일 기준</span>
+            <span id="styleReferenceValue" class="style-reference__value">텍스트를 선택하면 크기와 색상을 표시합니다.</span>
+          </span>
+        </div>
+        <div class="grid-2 action-grid action-grid--spaced action-grid--text-style" role="group" aria-label="텍스트 스타일 기준 선택">
+          <button id="selectSameFontBtn" class="control-button" type="button" disabled>동일한 서체 선택</button>
+          <button id="selectSameFontSizeBtn" class="control-button" type="button" disabled>동일한 크기 선택</button>
+          <button id="selectSameTextColorBtn" class="control-button" type="button" disabled>동일한 색상 선택</button>
+          <button id="selectSameFontSizeAndColorBtn" class="control-button" type="button" disabled>동일한 서체·크기·색상</button>
+        </div>
+      </section>
+
+      <!-- 2. 텍스트 검색 / 치환 -->
+      <section class="section section--text-search" aria-labelledby="textSearchTitle">
+        <h2 id="textSearchTitle" class="section-title">텍스트 검색 선택·변경</h2>
+        <p class="section-desc">텍스트를 찾거나 바꿉니다.</p>
+
+        <div class="field field--text-replacement">
+          <div class="text-replacement-pair">
+            <div class="text-replacement-pair__field">
+              <label class="label" for="keywordInput">찾을 텍스트</label>
+              <input id="keywordInput" class="form-control" type="search" placeholder="찾을 내용" autocomplete="off" />
+            </div>
+            <span class="text-replacement-pair__arrow" aria-hidden="true">→</span>
+            <div class="text-replacement-pair__field">
+              <label class="label" for="replaceInput">변경할 텍스트</label>
+              <input id="replaceInput" class="form-control" type="text" placeholder="바꿀 내용" autocomplete="off" />
+            </div>
+          </div>
+          <p class="field-hint">변경 범위에 따라 선택한 텍스트 또는 검색 범위 전체를 변경합니다.</p>
+          <div class="field field--replacement-scope">
+            <label class="label" for="replacementTargetScope">변경 범위</label>
+            <select id="replacementTargetScope" class="form-control">
+              <option value="selected">선택한 텍스트 레이어만</option>
+              <option value="all">검색 범위 전체</option>
+            </select>
+          </div>
+
+          <div class="grid-2 action-grid action-grid--spaced action-grid--text-search" role="group" aria-label="텍스트 검색 방식">
+            <button id="selectExactTextBtn" class="control-button" type="button">텍스트 일치 선택</button>
+            <button id="selectKeywordBtn" class="control-button" type="button">텍스트 포함 선택</button>
+          </div>
+          <div class="stack-top action-wrap action-wrap--text-replacement">
+            <button id="replaceTextBtn" class="control-button control-button--primary" type="button">텍스트 내용 변경</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 3. 레이어 이름 검색 -->
+    <div id="panelLayerName" class="tab-panel tab-panel--layer-name" role="tabpanel" aria-labelledby="tabLayerName" tabindex="0" hidden>
+      <section class="section section--same-name-selection" aria-labelledby="sameNameSelectionTitle">
+        <h2 id="sameNameSelectionTitle" class="section-title">레이어/그룹 전체 선택</h2>
+        <p class="section-desc">선택된 레이어 안에서 같은 이름의 레이어를 탐색합니다.</p>
+        <button id="selectSameNameAllBtn" class="control-button control-button--primary" type="button">동일한 이름 선택</button>
+      </section>
+
+      <section class="section section--layer-name-search" aria-labelledby="layerNameTitle">
+        <h2 id="layerNameTitle" class="section-title">레이어/그룹 검색 선택·변경</h2>
+        <p class="section-desc">이름을 입력하고 선택/변경합니다.</p>
+
+        <div class="field field--layer-name-search">
+          <div class="text-replacement-pair layer-name-pair">
+            <div class="text-replacement-pair__field">
+              <label class="label" for="layerNameInput">레이어 이름 찾기</label>
+              <input id="layerNameInput" class="form-control" type="search" placeholder="찾을 레이어 이름" autocomplete="off" />
+            </div>
+            <span class="text-replacement-pair__arrow" aria-hidden="true">→</span>
+            <div class="text-replacement-pair__field">
+              <label class="label" for="replaceLayerNameInput">레이어 이름 바꾸기</label>
+              <input id="replaceLayerNameInput" class="form-control" type="text" placeholder="새 레이어 이름" autocomplete="off" />
+            </div>
+          </div>
+            <p id="layerTypeSelectionHint" class="field-hint">레이어 이름으로 선택한 뒤, 선택된 레이어의 바로 아래에서 유형별로 탐색합니다.</p>
+
+          <div class="grid-2 action-grid action-grid--spaced action-grid--layer-name-search" role="group" aria-label="레이어 이름 검색 방식">
+            <button id="selectExactLayerNameBtn" class="control-button" type="button">이름 일치 선택</button>
+            <button id="selectIncludeLayerNameBtn" class="control-button" type="button">이름 포함 선택</button>
+          </div>
+
+          <fieldset class="action-group action-group--layer-type-selection" aria-describedby="layerTypeSelectionHint">
+            <legend class="label action-group__legend">유형별 선택 (한 단계씩)</legend>
+            <div class="grid-3 action-grid action-grid--type-selection action-grid--layer-type-selection">
+              <button id="selectTypeAutoLayoutBtn" class="control-button" type="button">오토레이아웃</button>
+              <button id="selectTypeFrameBtn" class="control-button" type="button">프레임</button>
+              <button id="selectTypeGroupBtn" class="control-button" type="button">그룹</button>
+              <button id="selectTypeComponentBtn" class="control-button" type="button">컴포넌트</button>
+              <button id="selectTypeTextBtn" class="control-button" type="button">텍스트</button>
+            </div>
+          </fieldset>
+          <div class="field field--replacement-scope">
+            <label class="label" for="layerNameTargetScope">변경 범위</label>
+            <select id="layerNameTargetScope" class="form-control">
+              <option value="selected">선택한 레이어만</option>
+              <option value="all">검색 범위 전체</option>
+            </select>
+          </div>
+          <p class="field-hint">검색 결과를 선택한 뒤 이름을 바꾸거나 아래 유형별 버튼으로 탐색합니다.</p>
+          <div class="stack-top action-wrap action-wrap--layer-name-replacement">
+            <button id="replaceLayerNameBtn" class="control-button control-button--primary" type="button">레이어 이름 변경</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="panelStructureTools" class="tab-panel tab-panel--structure-tools" role="tabpanel" aria-labelledby="tabStructureTools" tabindex="0" hidden>
+      <section class="section section--type-selection" aria-labelledby="typeSelectTitle">
+        <h2 id="typeSelectTitle" class="section-title">유형별 레이어 선택</h2>
+        <p class="section-desc">선택한 레이어의 바로 아래 단계에서 유형별 레이어를 탐색합니다.</p>
+        <div class="grid-3 action-grid action-grid--spaced action-grid--type-selection action-grid--structure-type-selection">
+          <button id="selectTypeAutoLayoutStructureBtn" class="control-button" type="button">오토레이아웃</button>
+          <button id="selectTypeFrameStructureBtn" class="control-button" type="button">프레임</button>
+          <button id="selectTypeGroupStructureBtn" class="control-button" type="button">그룹</button>
+          <button id="selectTypeComponentStructureBtn" class="control-button" type="button">컴포넌트</button>
+        </div>
+      </section>
+      <section class="section section--type-conversion" aria-labelledby="typeConversionTitle">
+        <h2 id="typeConversionTitle" class="section-title">구조 유형 변환</h2>
+        <p class="section-desc">선택 범위에서 그룹·프레임·오토레이아웃 구조를 다른 유형으로 변경합니다.</p>
+        <div class="action-group action-group--type-conversion">
+          <div class="grid-2 structure-conversion-pair">
+            <div class="field">
+              <label class="label" for="sourceStructureType">선택 유형 찾기</label>
+              <select id="sourceStructureType" class="form-control">
+                <option value="GROUP">그룹</option>
+                <option value="FRAME">프레임</option>
+                <option value="AUTO_LAYOUT">오토레이아웃</option>
+              </select>
+            </div>
+            <span class="structure-conversion-pair__arrow" aria-hidden="true">→</span>
+            <div class="field">
+              <label class="label" for="targetStructureType">바꿀 유형 선택</label>
+              <select id="targetStructureType" class="form-control">
+                <option value="FRAME">프레임</option>
+                <option value="GROUP">그룹</option>
+                <option value="AUTO_LAYOUT">오토레이아웃</option>
+              </select>
+            </div>
+          </div>
+          <div id="autoLayoutDirectionField" class="field" hidden>
+            <label class="label" for="autoLayoutDirection">오토레이아웃 방향</label>
+            <select id="autoLayoutDirection" class="form-control">
+              <option value="VERTICAL">세로</option>
+              <option value="HORIZONTAL">가로</option>
+            </select>
+          </div>
+          <p class="field-hint">선택 범위에서 지정한 구조만 변경합니다. 프레임과 그룹 변환은 회전된 구조나 오토레이아웃 부모 안에서는 지원되지 않습니다. 그룹 변환 시 프레임 배경·테두리·클리핑은 유지되지 않습니다.</p>
+          <div class="stack-top">
+            <button id="convertStructureTypeBtn" class="control-button control-button--primary" type="button">구조 유형 변경</button>
+          </div>
+        </div>
+      </section>
+      <section class="section section--type-grouping" aria-labelledby="typeGroupingTitle">
+        <h2 id="typeGroupingTitle" class="section-title">유형 선별 그룹화</h2>
+        <p class="section-desc">선택한 각 레이어를 선택한 구조 유형의 컨테이너로 각각 묶습니다.</p>
+        <div class="grid-2 action-grid action-grid--spaced action-grid--type-grouping" role="group" aria-label="그룹화할 구조 유형">
+          <button id="groupSelectedAsAutoLayoutBtn" class="control-button" type="button" aria-expanded="false" aria-controls="typeGroupingDirection">오토레이아웃</button>
+          <button id="groupSelectedAsFrameBtn" class="control-button" type="button">프레임</button>
+          <button id="groupSelectedAsGroupBtn" class="control-button" type="button">그룹</button>
+          <button id="groupSelectedAsComponentBtn" class="control-button" type="button">컴포넌트</button>
+        </div>
+        <div id="typeGroupingDirection" class="type-grouping-direction" hidden>
+          <label class="label" for="groupingAutoLayoutDirection">오토레이아웃 방향</label>
+          <select id="groupingAutoLayoutDirection" class="form-control">
+            <option value="VERTICAL">세로</option>
+            <option value="HORIZONTAL">가로</option>
+          </select>
+          <div class="stack-top">
+            <button id="applyAutoLayoutGroupingBtn" class="control-button control-button--primary" type="button">오토레이아웃으로 그룹화</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    </div>
+    <footer class="footer">
+      <div class="creator-meta" aria-label="저작권 정보">
+        <div class="creator-meta__copyright">Copyright © 2026 소중한네시간. All rights reserved.</div>
+      </div>
+    </footer>
+  </main>
+
+  <dialog id="helpDialog" class="help-dialog" aria-labelledby="helpDialogTitle">
+    <div class="help-dialog__header">
+      <div class="help-dialog__heading">
+        <span class="help-dialog__icon" aria-hidden="true">?</span>
+        <h2 id="helpDialogTitle" class="help-dialog__title">기능 사용 도움말</h2>
+      </div>
+      <button id="helpDialogClose" class="help-dialog__close control-button" type="button" aria-label="안내 닫기">×</button>
+    </div>
+    <div class="help-dialog__body">
+    <section class="help-dialog__section" aria-labelledby="helpSearchTitle">
+      <h3 id="helpSearchTitle">시작하기</h3>
+      <ul class="help-dialog__list">
+        <li>Figma에서 그룹이나 프레임을 선택하고 상단의 <strong>검색 기준</strong>을 확인하세요.</li>
+      </ul>
+    </section>
+    <section class="help-dialog__section" aria-labelledby="helpTextTabTitle">
+      <h3 id="helpTextTabTitle">텍스트 검색</h3>
+      <ul class="help-dialog__list">
+        <li><strong>모든 텍스트 선택:</strong> 검색 범위 안의 텍스트를 모두 선택합니다.</li>
+<li><strong>스타일 선택:</strong> 텍스트 하나를 기준으로 같은 서체·크기·색상을 찾습니다. ‘같은 서체·크기·색상 선택’은 세 조건이 모두 같은 텍스트만 선택합니다.</li>
+        <li><strong>검색·변경:</strong> 찾을 내용을 입력하고 일치·포함 선택을 누릅니다. 새 내용과 변경 범위(선택한 텍스트 레이어만 / 검색 범위 전체)를 확인한 뒤 ‘텍스트 내용 변경’을 실행하세요.</li>
+      </ul>
+    </section>
+    <section class="help-dialog__section" aria-labelledby="helpLayerTabTitle">
+      <h3 id="helpLayerTabTitle">레이어/그룹명 검색</h3>
+      <ul class="help-dialog__list">
+        <li><strong>동일한 이름 선택:</strong> 선택된 레이어 안에서 같은 이름의 레이어를 찾습니다.</li>
+        <li><strong>이름 검색·탐색:</strong> 찾을 이름을 입력하고 일치·포함 선택을 누릅니다. 유형별 버튼을 누르면 현재 선택의 바로 아래 단계에서 탐색합니다.</li>
+        <li><strong>이름 변경:</strong> 새 이름과 변경 범위(선택한 레이어만 / 검색 범위 전체)를 확인한 뒤 ‘레이어 이름 변경’을 실행하세요.</li>
+      </ul>
+    </section>
+    <section class="help-dialog__section" aria-labelledby="helpStructureTabTitle">
+      <h3 id="helpStructureTabTitle">유형별 검색</h3>
+      <ul class="help-dialog__list">
+        <li><strong>유형별 선택:</strong> 현재 선택의 바로 아래 단계에서 오토레이아웃·프레임·그룹·컴포넌트를 찾습니다.</li>
+        <li><strong>구조 유형 변환:</strong> 찾을 유형과 바꿀 유형을 지정해 그룹·프레임·오토레이아웃을 변환합니다. 오토레이아웃은 방향도 선택하세요.</li>
+        <li><strong>유형 선별 그룹화:</strong> 선택한 각 레이어를 지정한 유형의 새 컨테이너로 각각 묶습니다.</li>
+        <li>그룹 변환 시 배경·테두리·클리핑은 유지되지 않습니다. 프레임·그룹 변환은 회전된 구조나 오토레이아웃 부모 안에서 제한됩니다.</li>
+      </ul>
+    </section>
+    <section class="help-dialog__section" aria-labelledby="helpKeyboardTitle">
+      <h3 id="helpKeyboardTitle">키보드</h3>
+      <ul class="help-dialog__list">
+        <li>검색 입력에서 <kbd>Enter</kbd>: 포함 검색 및 선택</li>
+        <li>변경 입력에서 <kbd>Enter</kbd>: 변경 실행</li>
+        <li>탭에서 <kbd>←</kbd>/<kbd>→</kbd>로 이동, <kbd>Home</kbd>/<kbd>End</kbd>로 처음·끝 탭 선택</li>
+        <li><kbd>Tab</kbd>/<kbd>Shift</kbd>+<kbd>Tab</kbd>으로 이동, <kbd>Esc</kbd>로 안내 닫기</li>
+      </ul>
+    </section>
+    </div>
+  </dialog>
+
+  <script>
+    const byId = (id) => document.getElementById(id);
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const helpTrigger = byId('helpTrigger');
+    const helpDialog = byId('helpDialog');
+
+    helpTrigger.addEventListener('click', () => helpDialog.showModal());
+    byId('helpDialogClose').addEventListener('click', () => helpDialog.close());
+    helpDialog.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        helpDialog.close();
+      }
+    });
+    helpDialog.addEventListener('close', () => helpTrigger.focus());
+
+    function setTypeGroupingDirectionVisible(isVisible) {
+      byId('typeGroupingDirection').hidden = !isVisible;
+      byId('groupSelectedAsAutoLayoutBtn').setAttribute('aria-expanded', String(isVisible));
+    }
+
+    function activateTab(tab, moveFocus = false) {
+      if (tab.id !== 'tabStructureTools') setTypeGroupingDirectionVisible(false);
+      tabs.forEach((currentTab) => {
+        const isSelected = currentTab === tab;
+        currentTab.classList.toggle('mode-tabs__item--active', isSelected);
+        currentTab.setAttribute('aria-selected', String(isSelected));
+        currentTab.tabIndex = isSelected ? 0 : -1;
+        byId(currentTab.getAttribute('aria-controls')).hidden = !isSelected;
+      });
+
+      if (moveFocus) tab.focus();
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateTab(tab));
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        else return;
+
+        event.preventDefault();
+        activateTab(tabs[nextIndex], true);
+      });
+    });
+
+    const els = {
+      selectionCard: document.querySelector('.selection-card'),
+      selectionIcon: document.querySelector('.selection-icon'),
+      selectionCount: byId('selectionCount'),
+      selectionHint: byId('selectionHint'),
+      styleReference: byId('styleReference'),
+      styleReferenceTitle: byId('styleReferenceTitle'),
+      styleReferenceValue: byId('styleReferenceValue'),
+      styleReferenceIcon: byId('styleReference').querySelector('[data-icon="type"]'),
+      selectSameFontBtn: byId('selectSameFontBtn'),
+      selectSameFontSizeBtn: byId('selectSameFontSizeBtn'),
+      selectSameTextColorBtn: byId('selectSameTextColorBtn'),
+      selectSameFontSizeAndColorBtn: byId('selectSameFontSizeAndColorBtn'),
+      keywordInput: byId('keywordInput'),
+      replaceInput: byId('replaceInput'),
+      replacementTargetScope: byId('replacementTargetScope'),
+      layerNameInput: byId('layerNameInput'),
+      replaceLayerNameInput: byId('replaceLayerNameInput'),
+      layerNameTargetScope: byId('layerNameTargetScope'),
+      sourceStructureType: byId('sourceStructureType'),
+      targetStructureType: byId('targetStructureType'),
+      autoLayoutDirection: byId('autoLayoutDirection'),
+    };
+
+    // 선택 범위 정보가 도착하기 전에는 검색 동작을 비활성화합니다.
+    const actionButtons = Array.from(document.querySelectorAll('.tab-panel .control-button'));
+    actionButtons.forEach((button) => { button.disabled = true; });
+    const scopeActionButtonIds = [
+      'selectAllTextBtn',
+      'selectSameNameAllBtn',
+      'selectTypeAutoLayoutStructureBtn',
+      'selectTypeFrameStructureBtn',
+      'selectTypeGroupStructureBtn',
+      'selectTypeComponentStructureBtn',
+      'convertStructureTypeBtn'
+    ];
+    const traversalActionButtonIds = [
+      'selectSameNameAllBtn',
+      'selectTypeAutoLayoutStructureBtn',
+      'selectTypeFrameStructureBtn',
+      'selectTypeGroupStructureBtn',
+      'selectTypeComponentStructureBtn',
+      'groupSelectedAsAutoLayoutBtn',
+      'groupSelectedAsFrameBtn',
+      'groupSelectedAsGroupBtn',
+      'groupSelectedAsComponentBtn',
+      'applyAutoLayoutGroupingBtn'
+    ];
+    let currentScopeCount = 0;
+    let currentSelectionCount = 0;
+    let layerNameMatchMode = 'contains';
+    function updateAutoLayoutDirectionAvailability() {
+      const isAutoLayout = els.targetStructureType.value === 'AUTO_LAYOUT';
+      byId('autoLayoutDirectionField').hidden = !isAutoLayout;
+      els.autoLayoutDirection.disabled = !isAutoLayout;
+    }
+
+    els.targetStructureType.addEventListener('change', updateAutoLayoutDirectionAvailability);
+    updateAutoLayoutDirectionAvailability();
+
+    function postPluginMessage(message) {
+      parent.postMessage({ pluginMessage: message }, '*');
+    }
+
+    window.addEventListener('blur', () => postPluginMessage({ type: 'ui-blur' }));
+
+    function bind(id, buildMessage) {
+      byId(id).addEventListener('click', () => postPluginMessage(buildMessage()));
+    }
+
+    const keyword = () => els.keywordInput.value;
+    const replacement = () => els.replaceInput.value;
+    const layerName = () => els.layerNameInput.value;
+    const replacementLayerName = () => els.replaceLayerNameInput.value;
+
+    function updateTextActionAvailability() {
+      const hasScope = els.selectionCard.dataset.state === 'selected';
+      const hasSearchText = Boolean(keyword().trim());
+      const hasReplacement = Boolean(replacement().trim());
+      const hasSelectedText = currentSelectionCount > 0;
+      byId('selectExactTextBtn').disabled = !hasScope || !hasSearchText;
+      byId('selectKeywordBtn').disabled = !hasScope || !hasSearchText;
+      byId('replaceTextBtn').disabled = !hasScope || !hasSearchText ||
+        !hasReplacement ||
+        (els.replacementTargetScope.value === 'selected' && !hasSelectedText);
+    }
+
+    function updateActionAvailability(scopeCount, selectionCount = currentSelectionCount) {
+      const hasScope = scopeCount > 0;
+      if (!hasScope) {
+        actionButtons.forEach((button) => { button.disabled = true; });
+      } else {
+        scopeActionButtonIds.forEach((id) => { byId(id).disabled = false; });
+      }
+      traversalActionButtonIds.forEach((id) => {
+        byId(id).disabled = !hasScope || selectionCount === 0;
+      });
+
+      const hasLayerName = Boolean(layerName().trim());
+      byId('selectExactLayerNameBtn').disabled = !hasScope || !hasLayerName;
+      byId('selectIncludeLayerNameBtn').disabled = !hasScope || !hasLayerName;
+      [
+        'selectTypeAutoLayoutBtn',
+        'selectTypeFrameBtn',
+        'selectTypeGroupBtn',
+        'selectTypeComponentBtn',
+        'selectTypeTextBtn'
+      ].forEach((id) => {
+        byId(id).disabled = !hasScope || !hasLayerName;
+      });
+      byId('replaceLayerNameBtn').disabled = !hasScope || !replacementLayerName().trim() ||
+        (els.layerNameTargetScope.value === 'selected' && selectionCount === 0) ||
+        (els.layerNameTargetScope.value === 'all' && !hasLayerName);
+
+      updateTextActionAvailability();
+    }
+
+    [
+      els.keywordInput,
+      els.replaceInput,
+      els.layerNameInput,
+      els.replaceLayerNameInput
+    ].forEach((input) => input.addEventListener('input', () => {
+      updateActionAvailability(currentScopeCount, currentSelectionCount);
+    }));
+
+    // 1. 텍스트 일괄 선택
+    bind('selectAllTextBtn', () => ({ type: 'select-all-text' }));
+    bind('selectSameFontBtn', () => ({ type: 'select-same-font' }));
+    bind('selectSameFontSizeBtn', () => ({ type: 'select-same-font-size' }));
+    bind('selectSameTextColorBtn', () => ({ type: 'select-same-text-color' }));
+    bind('selectSameFontSizeAndColorBtn', () => ({ type: 'select-same-font-size-and-color' }));
+
+    // 2. 텍스트 검색 / 치환
+    bind('selectExactTextBtn', () => ({ type: 'select-exact-text', keyword: keyword() }));
+    bind('selectKeywordBtn', () => ({ type: 'select-keyword', keyword: keyword() }));
+    bind('replaceTextBtn', () => ({
+      type: 'replace-text',
+      target: keyword(),
+      replacement: replacement(),
+      targetScope: els.replacementTargetScope.value
+    }));
+
+    els.replacementTargetScope.addEventListener('change', updateTextActionAvailability);
+
+    // 3. 레이어 이름 검색
+    byId('selectExactLayerNameBtn').addEventListener('click', () => {
+      layerNameMatchMode = 'exact';
+      postPluginMessage({ type: 'select-exact-layer-name', layerName: layerName() });
+    });
+    byId('selectIncludeLayerNameBtn').addEventListener('click', () => {
+      layerNameMatchMode = 'contains';
+      postPluginMessage({ type: 'select-include-layer-name', layerName: layerName() });
+    });
+    bind('replaceLayerNameBtn', () => ({
+      type: 'replace-layer-name',
+      replacement: replacementLayerName(),
+      target: layerName(),
+      targetScope: els.layerNameTargetScope.value,
+      matchMode: layerNameMatchMode
+    }));
+
+    els.layerNameTargetScope.addEventListener('change', () => {
+      updateActionAvailability(currentScopeCount, currentSelectionCount);
+    });
+
+    bind('convertStructureTypeBtn', () => ({
+      type: 'convert-structure-type',
+      sourceType: els.sourceStructureType.value,
+      targetType: els.targetStructureType.value,
+      layoutMode: els.autoLayoutDirection.value
+    }));
+
+    // 유형별 및 동일한 이름 구조 선택
+    bind('selectSameNameAllBtn', () => ({ type: 'select-same-name-all' }));
+    const bindLayerNameTypeSelection = (id, type) => {
+      byId(id).addEventListener('click', () => postPluginMessage({
+        type,
+        layerName: layerName(),
+        matchMode: layerNameMatchMode,
+        layerNameSearch: true
+      }));
+    };
+    bindLayerNameTypeSelection('selectTypeAutoLayoutBtn', 'select-type-autolayout');
+    bindLayerNameTypeSelection('selectTypeFrameBtn', 'select-type-frame');
+    bindLayerNameTypeSelection('selectTypeGroupBtn', 'select-type-group');
+    bindLayerNameTypeSelection('selectTypeComponentBtn', 'select-type-component');
+    bindLayerNameTypeSelection('selectTypeTextBtn', 'select-type-text');
+    bind('selectTypeAutoLayoutStructureBtn', () => ({ type: 'select-type-autolayout' }));
+    bind('selectTypeFrameStructureBtn', () => ({ type: 'select-type-frame' }));
+    bind('selectTypeGroupStructureBtn', () => ({ type: 'select-type-group' }));
+    bind('selectTypeComponentStructureBtn', () => ({ type: 'select-type-component' }));
+    byId('groupSelectedAsAutoLayoutBtn').addEventListener('click', () => {
+      const isExpanded = byId('groupSelectedAsAutoLayoutBtn').getAttribute('aria-expanded') === 'true';
+      setTypeGroupingDirectionVisible(!isExpanded);
+    });
+    bind('applyAutoLayoutGroupingBtn', () => ({
+      type: 'group-selected-layers',
+      targetType: 'AUTO_LAYOUT',
+      layoutMode: byId('groupingAutoLayoutDirection').value
+    }));
+    bind('groupSelectedAsFrameBtn', () => ({
+      type: 'group-selected-layers',
+      targetType: 'FRAME'
+    }));
+    bind('groupSelectedAsGroupBtn', () => ({
+      type: 'group-selected-layers',
+      targetType: 'GROUP'
+    }));
+    bind('groupSelectedAsComponentBtn', () => ({
+      type: 'group-selected-layers',
+      targetType: 'COMPONENT'
+    }));
+    // Enter 키 단축 동작
+    els.keywordInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        byId('selectKeywordBtn').click();
+      }
+    });
+
+    els.layerNameInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        byId('selectIncludeLayerNameBtn').click();
+      }
+    });
+
+    els.replaceLayerNameInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        byId('replaceLayerNameBtn').click();
+      }
+    });
+
+    els.replaceInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        byId('replaceTextBtn').click();
+      }
+    });
+
+    // (선택 사항) code.js에서 보내는 선택 정보 표시
+    window.onmessage = (event) => {
+      const message = event.data && event.data.pluginMessage;
+      if (!message) return;
+
+      if (message.type === 'reset-feature-inputs') {
+        [
+          els.keywordInput,
+          els.replaceInput,
+          els.layerNameInput,
+          els.replaceLayerNameInput
+        ].forEach((input) => { input.value = ''; });
+        els.replacementTargetScope.value = 'selected';
+        els.layerNameTargetScope.value = 'selected';
+        layerNameMatchMode = 'contains';
+        els.sourceStructureType.value = 'GROUP';
+        els.targetStructureType.value = 'FRAME';
+        els.autoLayoutDirection.value = 'VERTICAL';
+        setTypeGroupingDirectionVisible(false);
+        updateAutoLayoutDirectionAvailability();
+        updateActionAvailability(currentScopeCount, currentSelectionCount);
+        return;
+      }
+
+      if (message.type !== 'selection-info') return;
+
+      const count = Number.isInteger(message.selectionCount) ? message.selectionCount : 0;
+      const scopeCount = Number.isInteger(message.scopeCount) ? message.scopeCount : count;
+      currentSelectionCount = count;
+      currentScopeCount = scopeCount;
+      const scopeTextCount = Number.isInteger(message.scopeTextCount) ? message.scopeTextCount : 0;
+      const scopeNames = Array.isArray(message.scopeNames)
+        ? message.scopeNames.filter(name => typeof name === 'string' && name.trim())
+        : [];
+      const fontSizeReference = message.fontSizeReference;
+      const styleFont = fontSizeReference && fontSizeReference.font;
+      const styleColor = fontSizeReference && fontSizeReference.color;
+
+      if (scopeCount === 0) {
+        els.selectionCard.dataset.state = 'unselected';
+        els.selectionCount.textContent = '검색 범위를 선택하세요';
+        els.selectionHint.textContent = '그룹이나 프레임을 선택하면 그 안에서 검색합니다.';
+      } else {
+        els.selectionCard.dataset.state = 'selected';
+        const visibleNames = scopeNames.slice(0, 3);
+        const additionalCount = Math.max(0, scopeCount - visibleNames.length);
+        const names = visibleNames.length
+          ? visibleNames.join(', ') + (additionalCount ? ` 외 ${additionalCount}개` : '')
+          : `레이어 ${scopeCount}개`;
+        els.selectionCount.textContent = `검색 기준: ${names}`;
+        els.selectionHint.textContent = `선택 레이어 ${scopeCount}개 · 하위 텍스트 ${scopeTextCount}개 검색 대상`;
+      }
+
+      updateActionAvailability(scopeCount, count);
+      if (!fontSizeReference) {
+        els.styleReference.dataset.mode = 'empty';
+        els.styleReferenceTitle.textContent = '스타일 기준';
+        els.styleReferenceValue.textContent = '텍스트를 선택하면 서체·크기·색상을 표시합니다.';
+        els.styleReferenceIcon.style.color = '';
+      } else {
+        const fontSize = typeof fontSizeReference.fontSize === 'number'
+          ? `${fontSizeReference.fontSize}px`
+          : '크기 혼합';
+        const color = styleColor && styleColor.hex ? styleColor.hex : '단색 색상 없음';
+        els.styleReference.dataset.mode = ['font', 'color', 'font-size-color'].includes(message.styleMode)
+          ? message.styleMode : 'font-size';
+        els.styleReferenceTitle.textContent = `${fontSizeReference.textName} 기준`;
+        const fontLabel = styleFont && styleFont.label ? styleFont.label : '서체 정보 없음';
+        els.styleReferenceValue.textContent = `${fontLabel} · ${fontSize} · ${color}`;
+        els.styleReferenceIcon.style.color =
+          styleColor && styleColor.css ? styleColor.css : '';
+      }
+      els.selectSameFontBtn.disabled = scopeCount === 0 ||
+        !fontSizeReference ||
+        !fontSizeReference.fontKey;
+      els.selectSameFontSizeBtn.disabled = scopeCount === 0 ||
+        !fontSizeReference ||
+        typeof fontSizeReference.fontSize !== 'number';
+      els.selectSameTextColorBtn.disabled = scopeCount === 0 ||
+        !fontSizeReference ||
+        !fontSizeReference.colorKey;
+      els.selectSameFontSizeAndColorBtn.disabled = scopeCount === 0 ||
+        !fontSizeReference ||
+        !fontSizeReference.fontKey ||
+        typeof fontSizeReference.fontSize !== 'number' ||
+        !Number.isFinite(fontSizeReference.fontSize) ||
+        !fontSizeReference.colorKey;
+    };
+
+    postPluginMessage({ type: 'ui-ready' });
+  </script>
+</body>
+</html>

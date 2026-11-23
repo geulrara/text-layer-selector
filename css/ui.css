@@ -1,0 +1,103 @@
+  :root {color-scheme: light dark; --line-tight: 1.3; --accent-teal: #15a48f;}
+  html, body {min-height: 100%;}
+  body {background: var(--figma-color-bg, var(--surface)); color: var(--figma-color-text, var(--ink)); -webkit-font-smoothing: antialiased;}
+  .app {height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+  .header {height:52px;flex:0 0 52px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--figma-color-border, var(--line));}
+  .header__meta {display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px;}
+  .eyebrow {min-width: 0; margin: 0; color: var(--accent); font-size: var(--text-caption); font-weight: 600; line-height: var(--line-tight);}
+  .shortcut {flex: 0 0 auto; margin: 0; text-align: right; color: var(--figma-color-text-tertiary, #888); font-size: var(--text-caption); line-height: var(--line-tight); white-space: nowrap;}
+  .header__actions {display: flex; align-items: center; gap: 8px; flex-shrink: 0;}
+  .header__version {font-size: 10px; color: var(--figma-color-text-tertiary, #999); white-space: nowrap;}
+  .help-trigger, .help-dialog__close {display: grid; place-items: center; flex: 0 0 var(--tab-height); width: var(--tab-height); min-height: var(--tab-height); color: var(--figma-color-text-secondary, var(--muted));}
+  .help-trigger {padding: 5px; border-radius: 5px;}
+  .help-trigger:hover {color: var(--accent);}
+  .help-trigger svg {width: 17px; height: 17px; fill: none; stroke: currentcolor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8;}
+  .help-dialog {width: min(420px, calc(100% - 24px)); max-height: min(640px, calc(100vh - 32px)); max-height: min(640px, calc(100dvh - 32px)); padding: 0; overflow: hidden; border: 1px solid var(--figma-color-border, #ddd); border-radius: 12px; background: var(--figma-color-bg, var(--surface)); color: var(--figma-color-text, var(--ink)); box-shadow: 0 20px 64px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.08);}
+  .help-dialog[open] {display: flex; flex-direction: column;}
+  .help-dialog::backdrop {background: rgba(15, 23, 42, 0.48);}
+  .help-dialog__header {display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; padding: 14px 16px; border-bottom: 1px solid var(--figma-color-border, var(--line)); background: var(--figma-color-bg, var(--surface));}
+  .help-dialog__heading {display: flex; align-items: center; gap: 9px; min-width: 0;}
+  .help-dialog__icon {display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px; border-radius: 8px; background: var(--figma-color-bg-selected-secondary, #edf7ff); color: var(--accent); font-size: 15px; font-weight: 650;}
+  .help-dialog__title {margin: 0; font-size: 14px; font-weight: 650; line-height: 1.4;}
+  .help-dialog__body {min-height: 0; padding: 14px; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; background: var(--figma-color-bg-secondary, var(--subtle));}
+  .help-dialog__section {padding: 14px; border: 1px solid var(--figma-color-border, var(--line)); border-radius: 8px; background: var(--figma-color-bg, var(--surface));}
+  .help-dialog__section + .help-dialog__section {margin-top: 10px;}
+  .help-dialog__section:first-child {border-color: var(--figma-color-border-selected, #b8dcff); background: var(--figma-color-bg-selected-secondary, #edf7ff);}
+  .help-dialog__section h3 {display: flex; align-items: center; gap: 7px; margin: 0 0 10px; color: var(--figma-color-text, var(--ink)); font-size: 12px; font-weight: 650; line-height: 1.4;}
+  .help-dialog__section h3::before {content: ''; width: 3px; height: 12px; border-radius: 2px; background: var(--accent);}
+  .help-dialog__list {display: grid; gap: 9px; margin: 0; padding-left: 16px; color: var(--figma-color-text-secondary, var(--muted)); font-size: 11px; line-height: 1.7; overflow-wrap: anywhere;}
+  .help-dialog__list li::marker {color: var(--figma-color-text-tertiary, #aaa); font-size: 9px;}
+  .help-dialog__list strong {color: var(--figma-color-text, var(--ink)); font-weight: 600;}
+  .help-dialog__section:first-child .help-dialog__list {list-style: none; padding-left: 0;}
+  .help-dialog kbd {display: inline-block; margin: 1px 0; font-size: 10px; line-height: 1.5;}
+  .help-dialog__close {padding: 0; border-color: transparent; font-size: 20px; font-weight: 400; line-height: 1;}
+  .help-dialog__close:hover {border-color: var(--figma-color-border, #ddd);}
+  kbd {padding: 1px 4px; border: 1px solid var(--figma-color-border, #e6e6e6); border-radius: 4px; background: var(--figma-color-bg-secondary, var(--soft)); color: var(--figma-color-text-secondary, var(--muted)); font-family: inherit; font-size: inherit;}
+  h1 {margin:0;font-size:13px;line-height:1.3;font-weight:650;letter-spacing:0;}
+  .description {max-width: 62ch; margin: 6px 0 0; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-size);}
+  /* 선택 현황 카드 */ .selection-card {display:flex;align-items:center;gap:10px;min-height:56px;padding:10px;margin:0;border:1px solid var(--figma-color-border, var(--line));border-radius:7px;background:var(--figma-color-bg-secondary, var(--soft));}
+  .selection-card[data-state="unselected"] {border-color:var(--figma-color-border, var(--line));background:var(--figma-color-bg-secondary, var(--soft));box-shadow:none;}
+  .selection-card[data-state="selected"] {border-color:var(--figma-color-border-selected, var(--accent));background:var(--figma-color-bg-selected-secondary,#f0f8ff);}
+  .selection-icon {display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border:1px solid var(--figma-color-border,#ddd);border-radius:5px;background:var(--figma-color-bg, var(--surface));color:var(--figma-color-text-secondary, var(--muted));}
+  .selection-card[data-state="selected"] .selection-icon {border-color: transparent; background: var(--figma-color-bg-selected, #fff); color: var(--accent);}
+  .selection-card[data-state="unselected"] .selection-icon {border-color:var(--figma-color-border,#ddd);background:var(--figma-color-bg, var(--surface));color:var(--figma-color-text-secondary, var(--muted));}
+  .selection-icon svg {display: none; width: 17px; height: 17px; fill: none; stroke: currentcolor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7;}
+  .selection-card[data-state="unselected"] .selection-icon [data-icon="scope"], .selection-card[data-state="selected"] .selection-icon [data-icon="check"] {display: block;}
+  .selection-text {min-width: 0;}
+  .selection-title {margin: 0; font-weight: 600; line-height: var(--line-tight); overflow-wrap: anywhere;}
+  .selection-hint {margin: 2px 0 0; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small);}
+  /* 섹션 */ .section {padding:16px 0;border-top:1px solid var(--figma-color-border, var(--line));}
+  .section:first-of-type {border-top: 0; padding-top: 0;}
+  .section h2 {color:var(--figma-color-text-secondary, var(--muted));}
+  .mode-tabs {display: grid; flex-shrink: 0; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 0 16px; border-bottom: 1px solid var(--figma-color-border, #ddd);}
+  .mode-tabs__item {height: 38px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--figma-color-text-secondary, var(--muted)); font-weight: 600;}
+  .mode-tabs__item--active {border-bottom-color: var(--accent); color: var(--figma-color-text, #222);}
+  .mode-tabs__item:focus-visible {outline: 2px solid var(--accent); outline-offset: -2px;}
+  .tab-panel[hidden] {display: none;}
+  .section-title {margin:0;font-size:10px;font-weight:700;letter-spacing:.06em;line-height:1.5;}
+  .section-desc {margin: 3px 0 10px; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small);}
+  .label {display: block; margin-bottom: 6px; font-weight: 600; line-height: var(--line-tight);}
+  .field {margin-top: 10px;}
+  .field-hint {margin: 5px 0 0; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small);}
+  .style-reference {display:flex;align-items:center;gap:10px;min-height:48px;padding:10px;margin-top:10px;border:1px solid var(--figma-color-border,#ddd);border-radius:7px;background:var(--figma-color-bg-secondary, var(--subtle));color:var(--figma-color-text, var(--ink));}
+  .style-reference__icon {display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px; border-radius: 8px; background: var(--figma-color-bg, var(--surface)); color: var(--accent);}
+  .style-reference[data-mode="color"] .style-reference__icon {color: var(--accent-teal);}
+  .style-reference__icon svg {display: block; width: 10px; height: 10px; fill: currentcolor;}
+  .style-reference__content {min-width: 0;}
+  .style-reference__title {margin: 0; font-size: var(--text-small); font-weight: 600; line-height: var(--line-tight);}
+  .style-reference__value {margin: 3px 0 0; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small); overflow-wrap: anywhere;}
+  .field__sub-label {margin-top: 10px;}
+  .grid-2, .grid-3 {display: grid; gap: 8px;}
+  .grid-2 {grid-template-columns: 1fr 1fr;}
+  .grid-3 {grid-template-columns: 1fr 1fr 1fr;}
+  .structure-conversion-pair {grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr); align-items: end; margin-top: 10px;}
+  .structure-conversion-pair .field {margin-top: 0;}
+  .structure-conversion-pair__arrow {display: grid; min-height: 32px; place-items: center; color: var(--figma-color-text-secondary, var(--muted)); font-size: 16px; font-weight: 600;}
+  .action-grid--spaced {margin-top: 10px;}
+  .text-replacement-pair {display: grid; grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr); align-items: end; gap: 8px;}
+  .text-replacement-pair__field {min-width: 0;}
+  .text-replacement-pair__field .label, .field--replacement-scope .label, .action-group__legend {font-size: var(--text-small);}
+  .text-replacement-pair__arrow {display: grid; min-height: 32px; place-items: center; color: var(--figma-color-text-secondary, var(--muted)); font-size: 16px; font-weight: 600;}
+  .action-grid--type-selection {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+  .action-grid--layer-type-selection {grid-template-columns:repeat(3,minmax(0,1fr));}
+  .action-grid--type-selection .control-button, .action-grid--type-grouping .control-button {white-space: normal; overflow-wrap: anywhere;}
+  .action-grid--type-grouping {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+  .type-grouping-direction {margin-top: 10px;}
+  .type-grouping-direction[hidden] {display: none;}
+  .stack-top {margin-top: 10px;}
+  .action-group {min-width: 0; margin: 10px 0 0; padding: 0; border: 0;}
+  .action-group__legend {display: block; width: 100%;}
+  .sub-label {margin: 12px 0 6px; color: var(--figma-color-text-secondary, var(--muted)); font-size: var(--text-small); font-weight: 600; line-height: var(--line-tight);}
+  /* 입력 */ .tab-panel .control-button {width: 100%; padding-block: 7px;}
+  /* 푸터 */ .footer {flex-shrink:0;margin:0;padding:10px 16px;border-top:1px solid var(--figma-color-border, var(--line));background:var(--figma-color-bg, var(--surface));}
+  .creator-meta {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--figma-color-text-secondary, var(--muted));font-size:11px;line-height:1.5;text-align:center;overflow-wrap:anywhere;}
+  .content {display: flex; flex: 1; flex-direction: column; gap: 16px; min-height: 0; padding: 16px; overflow-y: auto; overscroll-behavior-y: contain;}
+  .content:focus-visible {outline: 2px solid var(--accent); outline-offset: -2px;}
+  .content > * {flex-shrink: 0;}
+  .brand {min-width: 0;}
+  .brand h1 {overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+  @media (max-width: 340px) {
+    .text-replacement-pair, .structure-conversion-pair {grid-template-columns: minmax(0, 1fr);}
+    .text-replacement-pair__arrow, .structure-conversion-pair__arrow {display: none;}
+  }
+

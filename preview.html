@@ -1,0 +1,205 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Text & Layer Selector 사용 가이드. 텍스트 검색, 레이어 이름 변경, 구조 유형 변환을 배우고 실제 플러그인 UI를 체험하세요." />
+  <title>사용 가이드 · Text &amp; Layer Selector</title>
+  <link rel="stylesheet" href="./css/common.css" />
+  <link rel="stylesheet" href="./css/preview.css" />
+</head>
+<body>
+  <a class="skip" href="#guide">가이드 본문으로 이동</a>
+  <header class="topbar"><div class="topbar-inner">
+    <a class="brand" href="#"><span class="brand__mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Text &amp; Layer Selector</a>
+    <nav aria-label="주요 메뉴"><a href="#start">사용 가이드</a><a href="#preview">UI 체험 ↗</a></nav>
+  </div></header>
+  <main class="layout">
+    <article id="guide">
+      <header><p class="eyebrow">PLUGIN GUIDE / FIGMA</p>
+        <h1>찾고, 선택하고,<br />한 번에 정리하세요.</h1>
+        <p class="intro">반복되는 텍스트 수정부터 레이어 정리까지.<br />Text &amp; Layer Selector의 사용 방법을 살펴보고, 실제 UI를 직접 체험해 보세요.</p>
+        <div class="tags"><span class="tag">텍스트 검색·변경</span><span class="tag">레이어 이름 관리</span><span class="tag">구조 유형 변환</span></div>
+      </header>
+      <nav class="contents segment-list" aria-label="가이드 목차"><a class="segment-item" href="#start">01 시작하기</a><a class="segment-item" href="#text">02 텍스트</a><a class="segment-item" href="#layers">03 레이어/그룹</a><a class="segment-item" href="#structure">04 유형별</a><a class="segment-item" href="#tips">05 사용 팁</a></nav>
+      <section id="start" class="guide-section" aria-labelledby="startTitle">
+        <div class="section-heading"><span class="number">01</span><h2 id="startTitle">먼저, 검색 범위를 선택하세요</h2></div>
+        <ol class="steps"><li>Figma에서 플러그인을 실행하고, 캔버스의 <strong>그룹이나 프레임</strong>을 선택합니다.</li><li>상단의 <strong>검색 기준</strong>에서 범위 이름과 하위 텍스트 수를 확인합니다.</li><li><strong>텍스트 · 레이어/그룹 · 유형별</strong> 중 원하는 탭에서 작업합니다.</li></ol>
+        <div class="callout"><strong>선택 범위가 작업의 시작점입니다.</strong><p>버튼이 비활성화되어 있다면 검색 범위를 먼저 선택하세요. 검색어나 변경할 내용이 필요한 기능은 해당 입력도 채워야 합니다.</p></div>
+        <button class="try control-button control-button--primary" type="button" data-preset="scope">예시 프레임으로 체험하기 →</button>
+      </section>
+      <section id="text" class="guide-section" aria-labelledby="textTitle">
+        <div class="section-heading"><span class="number">02</span><h2 id="textTitle">텍스트를 찾고 바꾸기</h2></div>
+        <div class="feature"><h3>범위 안의 텍스트 한 번에 선택</h3><p><strong>모든 텍스트 선택</strong>을 누르면 검색 범위 안의 텍스트를 모두 선택합니다.</p></div>
+        <div class="feature"><h3>같은 서체·크기·색상의 텍스트 선택</h3><p>기준으로 사용할 텍스트 하나를 선택하고 <strong>스타일 기준</strong>에 표시된 서체, 크기와 색상을 확인하세요. <strong>같은 서체 선택</strong>, <strong>같은 글자 크기 선택</strong> 또는 <strong>같은 글자 색상 선택</strong>으로 원하는 기준의 텍스트를 찾습니다. <strong>같은 서체·크기·색상 선택</strong>은 세 조건이 모두 같은 텍스트만 선택합니다.</p></div>
+        <div class="feature"><h3>검색한 텍스트를 새 내용으로 변경</h3><p><strong>찾을 텍스트</strong>를 입력한 뒤, 전체 내용이 같으면 <strong>텍스트 일치 선택</strong>, 일부에 포함되면 <strong>텍스트 포함 선택</strong>을 누릅니다.</p></div>
+        <div class="example"><span>예시</span><code>구매하기</code><span aria-hidden="true">→</span><code>지금 구매하기</code></div>
+        <ol class="steps"><li><strong>변경할 텍스트</strong>에 새 내용을 입력합니다.</li><li><strong>변경 범위</strong>를 선택합니다. 선택한 결과만 바꾸려면 ‘선택한 텍스트 레이어만’, 범위 안에서 찾은 내용을 바꾸려면 ‘검색 범위 전체’를 사용합니다.</li><li><strong>텍스트 내용 변경</strong>을 눌러 적용합니다.</li></ol>
+        <button class="try control-button control-button--primary" type="button" data-preset="text">텍스트 기준이 있는 UI 체험하기 →</button>
+      </section>
+      <section id="layers" class="guide-section" aria-labelledby="layersTitle">
+        <div class="section-heading"><span class="number">03</span><h2 id="layersTitle">레이어 이름을 정리하기</h2></div>
+        <p>플러그인의 <strong>레이어/그룹</strong> 탭에서 시작하세요.</p>
+        <div class="feature"><h3>이름으로 찾기</h3><p><strong>레이어 이름 찾기</strong>에 검색어를 입력하고 <strong>이름 일치 선택</strong> 또는 <strong>이름 포함 선택</strong>을 누릅니다. <strong>동일한 이름 선택</strong>은 선택된 레이어 안에서 같은 이름의 레이어를 탐색합니다.</p></div>
+        <div class="feature"><h3>검색 결과에서 한 단계 더 탐색</h3><p>이름으로 선택한 뒤 <strong>유형별 선택 (한 단계씩)</strong>의 오토레이아웃·프레임·그룹·컴포넌트·텍스트 버튼을 누릅니다. 현재 선택한 레이어의 <strong>바로 아래 단계</strong>를 탐색하므로, 버튼을 다시 누르며 하위 구조로 이동할 수 있습니다.</p></div>
+        <div class="feature"><h3>새 이름 적용</h3><p><strong>레이어 이름 바꾸기</strong>에 새 이름을 입력하고, <strong>선택한 레이어만</strong> 또는 <strong>검색 범위 전체</strong>를 확인한 뒤 <strong>레이어 이름 변경</strong>을 누릅니다.</p></div>
+        <div class="example"><span>이름 정리 예시</span><code>Card</code><span aria-hidden="true">→</span><code>Product Card</code></div>
+      </section>
+      <section id="structure" class="guide-section" aria-labelledby="structureTitle">
+        <div class="section-heading"><span class="number">04</span><h2 id="structureTitle">유형으로 선택하고 구조 바꾸기</h2></div>
+        <p>플러그인의 <strong>유형별</strong> 탭에서 구조를 다룰 수 있습니다.</p>
+        <div class="feature"><h3>유형별 레이어 선택</h3><p>오토레이아웃·프레임·그룹·컴포넌트 중 원하는 버튼을 누르면 선택한 레이어의 바로 아래 단계에서 해당 유형을 찾습니다.</p></div>
+        <div class="feature"><h3>구조 유형 변환</h3><p><strong>선택 유형 찾기</strong>와 <strong>바꿀 유형 선택</strong>을 설정하고 <strong>구조 유형 변경</strong>을 누릅니다. 오토레이아웃으로 바꿀 때는 세로·가로 방향도 지정하세요.</p></div>
+        <div class="feature"><h3>유형 선별 그룹화</h3><p>선택한 <strong>각 레이어를 각각</strong> 새 컨테이너로 묶습니다. 오토레이아웃은 버튼을 누른 뒤 방향을 선택하고 <strong>오토레이아웃으로 그룹화</strong>로 적용합니다.</p></div>
+        <div class="callout"><strong>구조 변환 전 확인하세요.</strong><p>프레임과 그룹 변환은 회전된 구조나 오토레이아웃 부모 안에서는 지원되지 않습니다. 그룹으로 변환하면 프레임의 배경·테두리·클리핑이 유지되지 않습니다.</p></div>
+      </section>
+      <section id="tips" class="guide-section" aria-labelledby="tipsTitle">
+        <div class="section-heading"><span class="number">05</span><h2 id="tipsTitle">알아두면 편리한 사용 팁</h2></div>
+        <table class="keyboard"><caption>키보드 사용</caption><thead><tr><th scope="col">키 / 위치</th><th scope="col">동작</th></tr></thead><tbody>
+          <tr><td>검색 입력 + <kbd>Enter</kbd></td><td>포함 검색 및 선택</td></tr>
+          <tr><td>변경 입력 + <kbd>Enter</kbd></td><td>변경 실행</td></tr>
+          <tr><td>탭에서 <kbd>←</kbd> <kbd>→</kbd></td><td>기능 탭 이동</td></tr>
+          <tr><td>탭에서 <kbd>Home</kbd> <kbd>End</kbd></td><td>처음·끝 탭 선택</td></tr>
+          <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd> + <kbd>Tab</kbd></td><td>다음 / 이전 요소로 이동</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>플러그인의 도움말 닫기</td></tr>
+        </tbody></table>
+        <h3>자주 묻는 질문</h3>
+        <details class="faq"><summary>이 페이지에서 Figma 파일도 바뀌나요?</summary><p>이 페이지는 실제 ui.html을 불러와 조작하는 브라우저 체험입니다. 선택 상태는 예시이며 검색·변경·그룹화는 Figma 문서에 적용되지 않습니다. 실제 작업은 Figma 안에서 플러그인을 실행해 주세요.</p></details>
+        <details class="faq"><summary>같은 서체·크기·색상 선택 버튼은 언제 사용할 수 있나요?</summary><p>검색 범위와 기준 텍스트 정보가 있어야 합니다. 서체가 혼합된 텍스트, 크기가 혼합된 텍스트 또는 단색 색상 정보가 없는 텍스트는 해당 기준의 버튼이 비활성화될 수 있습니다. 여기서는 체험 상태를 ‘텍스트 기준 선택’으로 바꾸어 확인하세요.</p></details>
+        <details class="faq"><summary>변경 버튼을 누른 뒤 입력이 사라졌어요.</summary><p>Figma에서 변경 작업이 완료되면 입력이 초기화됩니다. 이 페이지에서는 체험 설정의 ‘변경 요청 후 입력 초기화’를 켜면 같은 입력 초기화를 확인할 수 있습니다.</p></details>
+      </section>
+    </article>
+    <aside id="preview" class="preview" aria-labelledby="previewTitle">
+      <div class="preview-heading"><h2 id="previewTitle">직접 사용해 보세요</h2><span class="live">실제 플러그인 UI</span></div>
+      <div class="preview-shell">
+        <div class="window-bar" aria-hidden="true"><i></i><i></i><i></i><span>Text &amp; Layer Selector · Preview</span></div>
+        <iframe id="pluginUi" src="./ui.html" title="Text &amp; Layer Selector 플러그인 체험"></iframe>
+        <div class="demo-controls"><label for="demoPreset">체험 상태</label><select class="form-control" id="demoPreset"><option value="scope">프레임 선택</option><option value="text">텍스트 기준 선택</option><option value="empty">선택 없음</option><option value="custom" disabled>사용자 지정</option></select><button id="restartDemo" class="control-button" type="button">다시 시작</button></div>
+      </div>
+      <p class="preview-note">UI 조작을 위한 예시 환경입니다. 검색·변경 요청은 아래 기록에서 확인할 수 있으며 Figma 문서에는 적용되지 않습니다.</p>
+      <output id="demoStatus" aria-live="polite">예시 선택 상태를 준비하고 있습니다.</output>
+      <details class="advanced"><summary>체험 설정 및 요청 기록</summary><div class="advanced-body">
+        <div class="fields"><label>검색 범위 수<input class="form-control" id="scopeCount" type="number" min="0" step="1" value="2" /></label><label>현재 선택 수<input class="form-control" id="selectionCount" type="number" min="0" step="1" value="2" /></label></div>
+        <label>범위 이름 (쉼표로 구분)<input class="form-control" id="scopeNames" type="text" value="Hero, Card" /></label>
+        <label>하위 텍스트 수<input class="form-control" id="scopeTextCount" type="number" min="0" step="1" value="8" /></label>
+        <label>스타일 기준<select class="form-control" id="styleReferenceMode"><option value="off">없음</option><option value="on">본문 · 16px · #202C29</option></select></label>
+        <div class="actions"><button id="sendSelection" class="control-button" type="button">선택 상태 적용</button><button id="resetInputs" class="control-button" type="button">입력 초기화</button></div>
+        <label>변경 요청 후 입력 초기화<select class="form-control" id="autoReset"><option value="on">켜기</option><option value="off">끄기</option></select></label>
+        <label for="log">최근 요청 기록 (최대 50개)</label><textarea class="form-control" id="log" readonly spellcheck="false"></textarea>
+        <button id="clearLog" class="control-button" type="button">기록 비우기</button>
+      </div></details>
+    </aside>
+  </main>
+  <footer><span>Text &amp; Layer Selector · 사용 가이드</span><span>Copyright © 2026 소중한네시간. All rights reserved.</span></footer>
+  <script>
+    const topbar = document.querySelector('.topbar');
+    const contents = document.querySelector('.contents');
+    const guideLinks = [...contents.querySelectorAll('a')];
+
+    function updateScrollOffsets() {
+      const styles = document.documentElement.style;
+      styles.setProperty('--topbar-height', `${topbar.offsetHeight}px`);
+      styles.setProperty('--contents-height', `${contents.offsetHeight}px`);
+    }
+
+    updateScrollOffsets();
+    const scrollOffsets = new ResizeObserver(updateScrollOffsets);
+    scrollOffsets.observe(topbar, { box: 'border-box' });
+    scrollOffsets.observe(contents, { box: 'border-box' });
+
+    function markCurrentSection(id) {
+      guideLinks.forEach((link) => {
+        if (link.hash === '#' + id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+    markCurrentSection(location.hash.slice(1) || 'start');
+    window.addEventListener('hashchange', () => markCurrentSection(location.hash.slice(1) || 'start'));
+    const byId = (id) => document.getElementById(id);
+    const iframe = byId('pluginUi');
+    const logEl = byId('log');
+    const resetTypes = new Set(['replace-text', 'replace-layer-name', 'convert-structure-type']);
+    const actionNames = {
+      'select-all-text': '모든 텍스트 선택', 'select-same-font-size': '같은 글자 크기 선택',
+      'select-same-text-color': '같은 글자 색상 선택', 'select-same-font': '같은 서체 선택', 'select-exact-text': '텍스트 일치 선택',
+      'select-same-font-size-and-color': '같은 서체·크기·색상 선택',
+      'select-keyword': '텍스트 포함 선택', 'replace-text': '텍스트 내용 변경',
+      'select-same-name-all': '동일한 이름 선택', 'select-exact-layer-name': '이름 일치 선택',
+      'select-include-layer-name': '이름 포함 선택', 'replace-layer-name': '레이어 이름 변경',
+      'convert-structure-type': '구조 유형 변경', 'group-selected-layers': '유형 선별 그룹화',
+      'select-type-autolayout': '오토레이아웃 선택', 'select-type-frame': '프레임 선택',
+      'select-type-group': '그룹 선택', 'select-type-component': '컴포넌트 선택', 'select-type-text': '텍스트 선택'
+    };
+    const logLines = [];
+    function log(direction, message) {
+      logLines.unshift(`[${new Date().toLocaleTimeString('ko-KR')}] ${direction} ${JSON.stringify(message)}`);
+      logLines.length = Math.min(logLines.length, 50);
+      logEl.value = logLines.join('\n');
+    }
+    function postToUi(message) {
+      iframe.contentWindow.postMessage({ pluginMessage: message }, '*');
+      log('가이드 → UI', message);
+    }
+    function count(id) {
+      const value = Number(byId(id).value);
+      const normalized = Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
+      byId(id).value = String(normalized);
+      return normalized;
+    }
+    function sendSelection() {
+      const scopeCount = count('scopeCount');
+      const selectionCount = count('selectionCount');
+      const scopeTextCount = count('scopeTextCount');
+      postToUi({
+        type: 'selection-info', scopeCount, selectionCount, scopeTextCount,
+        scopeNames: byId('scopeNames').value.split(',').map((name) => name.trim()).filter(Boolean),
+        styleMode: 'font-size',
+        fontSizeReference: scopeCount > 0 && selectionCount > 0 && byId('styleReferenceMode').value === 'on'
+          ? { textName: '본문', font: { family: 'Inter', style: 'Regular', label: 'Inter Regular' }, fontKey: JSON.stringify(['Inter', 'Regular']), fontSize: 16, color: { hex: '#202C29', css: '#202C29' }, colorKey: '#202C29' } : null
+      });
+      byId('demoStatus').textContent = scopeCount > 0 ? '예시 선택 상태가 적용되었습니다. UI의 버튼을 눌러보세요.' : '선택이 없는 상태입니다. 체험 상태를 바꾸면 기능이 활성화됩니다.';
+    }
+    function setPreset(preset) {
+      if (!['scope', 'text', 'empty'].includes(preset)) return;
+      byId('demoPreset').value = preset;
+      byId('scopeCount').value = preset === 'empty' ? '0' : '2';
+      byId('selectionCount').value = preset === 'empty' ? '0' : preset === 'text' ? '1' : '2';
+      byId('scopeTextCount').value = preset === 'empty' ? '0' : '8';
+      byId('scopeNames').value = preset === 'empty' ? '' : 'Hero, Card';
+      byId('styleReferenceMode').value = preset === 'text' ? 'on' : 'off';
+      sendSelection();
+    }
+    byId('demoPreset').addEventListener('change', (event) => setPreset(event.target.value));
+    byId('sendSelection').addEventListener('click', () => { byId('demoPreset').value = 'custom'; sendSelection(); });
+    byId('resetInputs').addEventListener('click', () => {
+      postToUi({ type: 'reset-feature-inputs' });
+      byId('demoStatus').textContent = '플러그인의 입력을 초기화했습니다.';
+    });
+    byId('restartDemo').addEventListener('click', () => {
+      byId('autoReset').value = 'on';
+      logLines.length = 0;
+      logEl.value = '';
+      setPreset('scope');
+      iframe.src = './ui.html';
+    });
+    byId('clearLog').addEventListener('click', () => { logLines.length = 0; logEl.value = ''; });
+    document.querySelectorAll('[data-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        setPreset(button.dataset.preset);
+        byId('preview').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+        byId('demoPreset').focus({ preventScroll: true });
+      });
+    });
+    window.addEventListener('message', (event) => {
+      if (event.source !== iframe.contentWindow) return;
+      const message = event.data && event.data.pluginMessage;
+      if (!message || typeof message.type !== 'string') return;
+      log('UI → 가이드', message);
+      if (message.type === 'ui-ready') { sendSelection(); return; }
+      byId('demoStatus').textContent = `‘${actionNames[message.type] || message.type}’ 요청을 받았습니다. 실제 실행은 Figma에서 가능합니다.`;
+      if (resetTypes.has(message.type) && byId('autoReset').value === 'on') postToUi({ type: 'reset-feature-inputs' });
+    });
+  </script>
+</body>
+</html>
+

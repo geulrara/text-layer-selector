@@ -1,0 +1,218 @@
+:root {
+  --ink: #333;
+  --muted: #6b6b6b;
+  --line: #e5e5e5;
+  --surface: #fff;
+  --soft: #f5f5f5;
+  --subtle: #f7f7f7;
+  --accent: #0d99ff;
+  --action: #0876c9;
+  --action-hover: #065f9f;
+  --text-size: 12px;
+  --text-small: 11px;
+  --text-caption: 10px;
+  --tab-height: 28px;
+  --field-height: 32px;
+  --button-height: 34px;
+  --control-radius: 6px;
+  font: var(--text-size)/1.5 Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+
+input[type="checkbox"] {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  vertical-align: middle;
+}
+
+@media (forced-colors: none) {
+  input[type="checkbox"] {
+    appearance: none;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--figma-color-border-strong, #777);
+    border-radius: 4px;
+    background-color: var(--figma-color-bg, var(--surface));
+    color: var(--surface);
+    cursor: pointer;
+  }
+
+  input[type="checkbox"]:is(:checked, :indeterminate) {
+    border-color: var(--action);
+    background-color: var(--action);
+  }
+
+  input[type="checkbox"]:checked::before {
+    content: "";
+    width: 4px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-1px) rotate(45deg);
+    border-radius: 2px;
+  }
+
+  input[type="checkbox"]:indeterminate::before {
+    content: "";
+    width: 8px;
+    height: 2px;
+    border: 0;
+    background: currentColor;
+    transform: none;
+  }
+
+  input[type="checkbox"]:enabled:hover { border-color: var(--action-hover); }
+  input[type="checkbox"]:enabled:is(:checked, :indeterminate):hover { background-color: var(--action-hover); }
+  input[type="checkbox"]:disabled { opacity: .55; cursor: not-allowed; }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: -.3px;
+}
+
+.brand__mark {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.brand__mark i {
+  display: block;
+  border-radius: 4px;
+  background: var(--accent);
+}
+.brand__mark i:nth-child(2) { background: #a259ff; }
+.brand__mark i:nth-child(3) { background: #f24e1e; }
+.brand__mark i:nth-child(4) { background: #1abcfe; }
+
+.form-control, .control-button {
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid var(--figma-color-border, #ddd);
+  border-radius: var(--control-radius);
+  background-color: var(--figma-color-bg, var(--surface));
+  color: var(--figma-color-text, var(--ink));
+  font-size: var(--text-size);
+}
+
+:is(input, select).form-control {
+  width: 100%;
+  height: var(--field-height);
+  padding-inline: 9px;
+}
+
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-inline-end: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='m3 4.5 3 3 3-3' stroke='%23777' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px 12px;
+}
+
+@media (forced-colors: active) {
+  select.form-control {
+    appearance: auto;
+    -webkit-appearance: auto;
+    padding-inline-end: 9px;
+    background-image: none;
+  }
+}
+
+textarea.form-control {
+  display: block;
+  width: 100%;
+  min-height: 155px;
+  padding: 11px;
+  resize: vertical;
+  font: var(--text-small)/1.55 "SFMono-Regular", Consolas, monospace;
+  tab-size: 2;
+}
+
+.form-control::placeholder {
+  color: var(--figma-color-text-tertiary, var(--muted));
+  opacity: 1;
+}
+
+.form-control:not(:disabled, [readonly], :focus-visible):hover {
+  border-color: var(--figma-color-border-strong, #aaa);
+}
+
+.form-control:focus-visible, .control-button:focus-visible, .segment-item:focus-visible, input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--figma-color-border-selected, var(--accent));
+  outline-offset: 2px;
+}
+
+.form-control:focus-visible { border-color: var(--figma-color-border-selected, var(--accent)); }
+
+.form-control[readonly], .form-control:disabled {
+  background-color: var(--figma-color-bg-secondary, var(--soft));
+}
+.form-control[readonly] { cursor: default; }
+.form-control:disabled, .control-button:disabled { opacity: .55; cursor: not-allowed; }
+
+.control-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--button-height);
+  padding: 0 13px;
+  font-weight: 650;
+}
+.control-button:not(:disabled):hover { background-color: var(--figma-color-bg-secondary, var(--soft)); }
+
+.control-button--primary {
+  border-color: var(--action);
+  background-color: var(--action);
+  color: var(--surface);
+}
+.control-button--primary:not(:disabled):hover {
+  border-color: var(--action-hover);
+  background-color: var(--action-hover);
+}
+
+.segment-list {
+  gap: 3px;
+  padding: 3px;
+  border-radius: 7px;
+  background: var(--figma-color-bg-secondary, #f3f3f3);
+}
+.segment-item {
+  display: grid;
+  place-items: center;
+  min-height: var(--tab-height);
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--figma-color-text-secondary, var(--muted));
+  font-size: var(--text-small);
+}
+.segment-item:is(:hover, [aria-selected="true"], [aria-current="location"]) {
+  background: var(--figma-color-bg, var(--surface));
+  color: var(--figma-color-text, var(--ink));
+  box-shadow: 0 1px 3px #0002;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
