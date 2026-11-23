@@ -9,7 +9,8 @@ const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8'
+  '.json': 'application/json; charset=utf-8',
+  '.svg': 'image/svg+xml'
 };
 const liveReloadScript = `<script>(function(){const source=new EventSource('/__livereload');source.onmessage=function(){location.reload()};source.onerror=function(){source.close()}})();</script>`;
 
